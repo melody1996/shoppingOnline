@@ -1,0 +1,20 @@
+div.register{
+    width: 350px;
+    height:440px;
+    margin-top: 0px;
+    margin-right: auto;
+    margin-left: auto;
+    border-radius: 5px;
+    padding: 20px;
+    border:2px solid  #ebeaea;
+    background-color: white;
+}
+.div1{
+	padding-left: 30px;
+	padding-top: 30px;
+}
+.age{
+	padding-left: 80px;
+	width:250px;
+	height: 25px;
+}

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xu.dao.SellerMapper">
+	<resultMap id="BaseResultMap" type="com.xu.model.Seller">
+		<id column="seller_id" property="sellerId" jdbcType="INTEGER" />
+		<result column="seller_name" property="sellerName"
+			jdbcType="VARCHAR" />
+		<result column="seller_phone" property="sellerPhone"
+			jdbcType="VARCHAR" />
+		<result column="seller_email" property="sellerEmail"
+			jdbcType="VARCHAR" />
+		<result column="seller_password" property="sellerPassword"
+			jdbcType="VARCHAR" />
+		<result column="seller_id_card_no" property="sellerIdCardNo"
+			jdbcType="VARCHAR" />
+		<result column="seller_realname" property="sellerRealname"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		seller_id, seller_name, seller_phone, seller_email,
+		seller_password,
+		seller_id_card_no,
+		seller_realname
+	</sql>
+	<!-- 修改密码 -->
+	<update id="update" parameterType="com.xu.model.Seller">
+		update seller
+		set
+		seller_password = #{sellerPassword,jdbcType=VARCHAR}
+		where seller_id =
+		#{sellerId,jdbcType=INTEGER}
+	</update>
+	<!-- 修改个人信息 -->
+	<update id="updateInfo" parameterType="com.xu.model.Seller">
+		update seller
+		set seller_name =
+		#{sellerName,jdbcType=VARCHAR},seller_phone=
+		#{sellerPhone,jdbcType=VARCHAR},seller_email= #{sellerEmail,jdbcType=VARCHAR}
+		where seller_id =
+		#{sellerId,jdbcType=INTEGER}
+	</update>
+	<!-- 通过手机号查找商家 -->
+	<select id="findSellerByPhone" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from seller
+		where seller_phone = #{sellerPhone,jdbcType=VARCHAR}
+	</select>
+	<!-- 通过用户名查找商家 -->
+	<select id="findSellerByName" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from seller
+		where seller_name = #{sellerName,jdbcType=VARCHAR}
+	</select>
+	<!-- 商家注册 -->
+	<insert id="register" parameterType="com.xu.model.Seller">
+		insert into seller
+		(seller_name, seller_phone,
+		seller_email, seller_password,
+		seller_id_card_no,
+		seller_realname)
+		values
+		(#{sellerName,jdbcType=VARCHAR}, #{sellerPhone,jdbcType=VARCHAR},
+		#{sellerEmail,jdbcType=VARCHAR}, #{sellerPassword,jdbcType=VARCHAR},
+		#{sellerIdCardNo,jdbcType=VARCHAR},
+		#{sellerRealname,jdbcType=VARCHAR})
+	</insert>
+</mapper>

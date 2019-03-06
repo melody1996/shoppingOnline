@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xu.dao.AddressMapper">
+	<resultMap id="BaseResultMap" type="com.xu.model.Address">
+		<id column="address_id" property="addressId" jdbcType="INTEGER" />
+		<result column="buyer_id" property="buyerId" jdbcType="INTEGER" />
+		<result column="consignee_name" property="consigneeName"
+			jdbcType="VARCHAR" />
+		<result column="consignee_address" property="consigneeAddress"
+			jdbcType="VARCHAR" />
+		<result column="consignee_phone" property="consigneePhone"
+			jdbcType="VARCHAR" />
+		<result column="consignee_postal_code" property="consigneePostalCode"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		address_id, buyer_id, consignee_name, consignee_address, consignee_phone,
+		consignee_postal_code
+	</sql>
+<!-- 查找某个买家的所有收货地址 -->
+	<select id="getAllAddress" resultMap="BaseResultMap">
+		select * from address where
+		shopper_id = #{shopperId,jdbcType=INTEGER}
+	</select>
+	<!-- 添加地址 -->
+	<insert id="addAddress" parameterType="com.xu.model.Address">
+		insert into address
+		(shopper_id,consignee_name, consignee_address,
+		consignee_phone,
+		consignee_postal_code)
+		values ( #{shopperId,jdbcType=INTEGER},
+		#{consigneeName,jdbcType=VARCHAR},
+		#{consigneeAddress,jdbcType=VARCHAR},
+		#{consigneePhone,jdbcType=VARCHAR},
+		#{consigneePostalCode,jdbcType=VARCHAR}
+		)
+	</insert>
+	<!-- 根据地址id查找地址 -->
+		<select id="findAddressById" resultMap="BaseResultMap">
+		select * from address where
+		address_id = #{addressId,jdbcType=INTEGER}
+	</select>
+	<!-- 修改地址 -->
+	<update id="modifyAddress" parameterType="com.xu.model.Address">
+		update address
+		set consignee_name
+		= #{consigneeName,jdbcType=VARCHAR},
+		consignee_address =
+		#{consigneeAddress,jdbcType=VARCHAR},
+		consignee_phone =
+		#{consigneePhone,jdbcType=VARCHAR},
+		consignee_postal_code =
+		#{consigneePostalCode,jdbcType=VARCHAR}
+		where address_id =
+		#{addressId,jdbcType=INTEGER}
+	</update>
+	<!-- 删除地址 -->
+	<delete id="deleteAddressById" parameterType="java.lang.Integer" >
+    delete from address
+    where address_id = #{addressId,jdbcType=INTEGER}
+  </delete>
+</mapper>

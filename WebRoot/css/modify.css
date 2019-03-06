@@ -1,0 +1,22 @@
+div.modify{
+    width: 350px;
+    height:400px;
+    margin-top: 0px;
+    margin-right: auto;
+    margin-left: auto;
+    border-radius: 5px;
+    padding: 20px;
+    border:2px solid  #ebeaea;
+    background-color: white;
+}
+div.modifyAddress{
+    width: 350px;
+    height:480px;
+    margin-top: 0px;
+    margin-right: auto;
+    margin-left: auto;
+    border-radius: 5px;
+    padding: 20px;
+    border:2px solid  #ebeaea;
+    background-color: white;
+}

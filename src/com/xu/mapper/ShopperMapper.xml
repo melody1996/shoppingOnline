@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xu.dao.ShopperMapper">
+	<resultMap id="BaseResultMap" type="com.xu.model.Shopper">
+		<id column="shopper_id" property="shopperId" jdbcType="INTEGER" />
+		<result column="shopper_name" property="shopperName" jdbcType="VARCHAR" />
+		<result column="shopper_phone" property="shopperPhone"
+			jdbcType="VARCHAR" />
+		<result column="shopper_email" property="shopperEmail"
+			jdbcType="VARCHAR" />
+		<result column="shopper_password" property="shopperPassword"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		shopper_id, shopper_name, shopper_phone, shopper_email,
+		shopper_password
+	</sql>
+	<!-- 查询shopper列表 -->
+	<select id="getAll" resultMap="BaseResultMap">
+		select * from shopper
+	</select>
+	<!-- 根据手机号码查找shopper -->
+	<select id="findShopperByPhone" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from shopper
+		where shopper_phone = #{shopperPhone,jdbcType=VARCHAR}
+	</select>
+	<!-- 根据用户名查找shopper -->
+	<select id="findShopperByName" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from shopper
+		where shopper_name = #{shopperName,jdbcType=VARCHAR}
+	</select>
+	<!-- 注册 -->
+	<insert id="register" parameterType="com.xu.model.Shopper">
+	insert into shopper
+	(shopper_name,shopper_phone,
+	shopper_email, shopper_password)
+	values
+	(#{shopper_name,jdbcType=VARCHAR},#{shopper_phone,jdbcType=VARCHAR},
+	#{shopper_email,jdbcType=VARCHAR}, #{shopperPassword,jdbcType=VARCHAR})
+</insert>
+<!-- 修改个人信息-->
+	<update id="update" parameterType="com.xu.model.Shopper">
+		update shopper
+		set shopper_name
+		= #{shopperName,jdbcType=VARCHAR},
+		shopper_phone =
+		#{shopperPhone,jdbcType=VARCHAR},
+		shopper_email =
+		#{shopperEmail,jdbcType=VARCHAR},
+		shopper_password =
+		#{shopperPassword,jdbcType=VARCHAR}
+		where shopper_id =
+		#{shopperId,jdbcType=INTEGER}
+	</update>
+	<!-- 修改密码-->
+	<update id="updatePassword" parameterType="com.xu.model.Shopper">
+		update shopper
+		set  shopper_password =
+		#{shopperPassword,jdbcType=VARCHAR}
+		where shopper_id =
+		#{shopperId,jdbcType=INTEGER}
+	</update>
+	<!-- 根据id查找shopper -->
+	<select id="findShopperById" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from shopper
+		where shopper_id = #{shopperId,jdbcType=INTEGER}
+	</select>
+</mapper>

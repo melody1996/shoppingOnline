@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xu.dao.ShopMapper">
+	<resultMap id="BaseResultMap" type="com.xu.model.Shop">
+		<id column="shop_id" property="shopId" jdbcType="INTEGER" />
+		<result column="shop_name" property="shopName"
+			jdbcType="VARCHAR" />
+		<result column="seller_id" property="sellerId"
+			jdbcType="INTEGER" />
+		<result column="shop_address" property="shopAddress"
+			jdbcType="VARCHAR" />
+		<result column="shop_description" property="shopDescription"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		shop_id, shop_name, seller_id, shop_address,
+		shop_description
+	</sql>
+	<select id="findShopByShopname" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from shop
+		where shop_name LIKE concat(concat('%',#{shopName}),'%')
+	</select>
+	<!-- 根据店铺编号查找 -->
+	<select id="getShopById" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from shop
+		where shop_id=#{shopId,jdbcType=INTEGER}
+	</select>
+	<!-- 根据卖家编号查找 -->
+	<select id="getShopBySellerId" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from shop
+		where seller_id=#{sellerId,jdbcType=INTEGER}
+	</select>
+	<!-- 修改店铺信息 -->
+	<update id="updateShop" parameterType="com.xu.model.Shop">
+		update shop set
+		shop_name=#{shopName,jdbcType=VARCHAR},shop_address=#{shopAddress,jdbcType=VARCHAR},
+		shop_description=#{shopDescription,jdbcType=VARCHAR} where
+		seller_id=#{sellerId,jdbcType=INTEGER}
+	</update>
+	<select id="findShopByName" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from shop
+		where shop_name =#{shopName,jdbcType=VARCHAR}
+	</select>
+</mapper>

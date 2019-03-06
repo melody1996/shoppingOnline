@@ -1,0 +1,28 @@
+body{
+    background-color: #ebeaea;  
+}
+div.loginContain{
+
+    height:450px;	
+    width:1600px;
+    background-image: url(../image/background.jpg);
+}
+div.login{
+    width: 350px;
+    height: 350px;
+    margin-top: 20px;
+    margin-right: auto;
+    margin-left: auto;
+    border-radius: 5px;
+    padding: 20px;
+    border:2px solid  #ebeaea;
+    background-color: white;
+    float:left; 
+    display:inline;
+}
+div.image{
+	height: 600px;
+	margin-left: 80px;
+	float:left; 
+    display:inline;
+}

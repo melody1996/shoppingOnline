@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xu.dao.CartMapper">
+	<resultMap id="BaseResultMap" type="com.xu.model.Cart">
+		<id column="cart_id" property="cartId" jdbcType="INTEGER" />
+		<result column="goods_id" property="goodsId" jdbcType="INTEGER" />
+		<result column="goods_number" property="goodsNumber" jdbcType="INTEGER" />
+		<result column="goods_total_price" property="goodsTotalPrice"
+			jdbcType="REAL" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		cart_id, goods_id, goods_number, goods_total_price
+	</sql>
+
+	<insert id="addIntoCart" parameterType="com.xu.model.Cart">
+		insert into cart
+		(shopper_id,goods_id, goods_number,
+		goods_total_price)
+		values
+		(#{shopperId,jdbcType=INTEGER},#{goodsId,jdbcType=INTEGER},
+		#{goodsNumber,jdbcType=INTEGER},
+		#{goodsTotalPrice,jdbcType=REAL})
+	</insert>
+	<select id="findCartById" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from cart
+		where shopper_id = #{0} and
+		goods_id=#{1}
+	</select>
+	<update id="updateCart" parameterType="com.xu.model.Cart">
+		update cart
+		set
+		goods_number = #{goodsNumber,jdbcType=INTEGER},
+		goods_total_price =
+		#{goodsTotalPrice,jdbcType=REAL}
+		where shopper_id =
+		#{shopperId,jdbcType=INTEGER} and
+		goods_id=#{goodsId,jdbcType=INTEGER}
+	</update>
+	<!-- 根据shopper编号查询购物车 -->
+	<select id="getCartByShopperId" resultMap="BaseResultMap">
+		select *from cart
+		where shopper_id = #{shopperId,jdbcType=INTEGER}
+	</select>
+	<!-- 把商品移出购物车 -->
+	<delete id="deleteCart" parameterType="java.lang.Integer">
+		delete from cart
+		where shopper_id = #{shopperId,jdbcType=INTEGER} and goods_id =
+		#{goodsId,jdbcType=INTEGER}
+	</delete>
+	<update id="modifyGoodNumber" parameterType="com.xu.model.Cart">
+		update cart
+		set
+		goods_number = #{goodsNumber,jdbcType=INTEGER},
+		goods_total_price =
+		#{goodsTotalPrice,jdbcType=REAL}
+		where shopper_id =
+		#{shopperId,jdbcType=INTEGER} and
+		goods_id=#{goodsId,jdbcType=INTEGER}
+	</update>
+</mapper>
